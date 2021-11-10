@@ -1,4 +1,5 @@
 'use strict';
+const { validationResult } = require('express-validator');
 // userController
 const { getAllUsers, getUser, addUser } = require('../models/userModel');
 
@@ -31,6 +32,13 @@ const user_get = async (req, res, next) => {
 };
 
 const user_post = async (req, res, next) => {
+  const errors = validationResult(request);
+  if(!errors.isEmpty()) {
+    console.log('user_post validation', errors.array());
+    next(httpError('Invalid data', 400));
+    return;
+  }
+
   try {
     console.log('lomakkeesta', req.body);
     const { name, email, passwd } = req.body;
