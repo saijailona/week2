@@ -6,12 +6,16 @@ const {
   user_list_get,
   user_get,
   user_post,
+  checkToken,
 } = require('../controllers/userController');
 const router = express.Router();
+
+router.get('/token', checkToken);
 
 router.get('/', user_list_get);
 
 router.get('/:id', user_get);
+
 
 router.post('/', 
 body('name').isLength({min: 3}), 
