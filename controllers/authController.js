@@ -16,7 +16,7 @@ const login = (req, res, next) => {
             return;
         }
         delete user.password;
-        const token = jwt.sign(user, 'oidjojwpd');
+        const token = jwt.sign(user, process.env.JWT_SECRET);
         return res.json({ user, token});
         });
     })(req,res,next);
